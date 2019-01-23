@@ -35,7 +35,6 @@ function togglePopup2() {
   signup.style.visibility = 'visible';
   loginContent.style.display = 'block';
 
-
   loginContent.style.opacity = '1';
   loginContent.style.transform = 'translate(-50%, -50%) scale(1)';
 }
