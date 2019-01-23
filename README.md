@@ -59,7 +59,7 @@ Tests were written using [Mocha](https://mochajs.org) and [Chai](https://chaijs.
 Mocha provides the tools for cleaning the state of the software while Chai is an assertion library that is used alongside Mocha in order to ensure that test cases meet expectations. For example
 
 ```
-describe('GET /partiess', () => {
+describe('GET /parties', () => {
   it('should fetch all parties', (done) => {
      api.get('/api/v1/parties')
      .set('Accept', 'application/json')
