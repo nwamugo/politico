@@ -1,0 +1,19 @@
+{
+  "name": "politico",
+  "version": "1.0.0",
+  "description": "A web app that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwamugo/politico.git"
+  },
+  "author": "UGOJI Duziem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nwamugo/politico/issues"
+  },
+  "homepage": "https://github.com/nwamugo/politico#readme"
+}
