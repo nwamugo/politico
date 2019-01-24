@@ -56,7 +56,6 @@ body {
   font-weight: 400;
   letter-spacing: .2rem;
   display: inline-block;
-
   color: #333;
 }
 
@@ -269,6 +268,12 @@ li::before {
   color: #680C0D;
 }
 
+.main-nav li::before {
+  content: " ";
+  color: #680C0D;
+  margin-right: 2rem;
+}
+
 .bird-view-img {
   float: left;
   height: 16rem;
@@ -464,10 +469,18 @@ li::before {
   background-color: #008000;
 }
 
-.btn-view-results {
+.btn-view-parties {
   text-decoration: none;
   margin-left: -6rem;
   background-color: #333;
+}
+
+.btn-view-results {
+  text-decoration: none;
+  margin-left: -4rem;
+  background-color: #f7f7f7;
+  color: #000;
+  border: 1px solid #333;
 }
 
 .btn-view-aspirants {

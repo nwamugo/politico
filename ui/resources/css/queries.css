@@ -1,7 +1,7 @@
 /*MEDIA QUERIES*/
 /*0 - 600px phone
-600 - 900px tablet port
-900 - 1200px tablet landsc
+600 - 900px tablet portrait
+900 - 1200px tablet landscape
 1200 - 1800 is our normal style
 1800px + is for the Big desktop
 */
@@ -34,19 +34,23 @@
     margin-right: -8rem;
   }
 
-  .row {
+  .row,
+  .asp-row {
     max-width: 50rem;
   }
 
-  .row:not(:last-child) {
+  .row:not(:last-child),
+  .asp-row:not(:last-child) {
     margin-bottom: 6rem;
   }
 
-  .row [class^="col-"] {
+  .row [class^="col-"],
+  .asp-row [class^="asp-col-"] {
     width: 100% !important;
   }
 
-  .row [class^="col-"]:not(:last-child) {
+  .row [class^="col-"]:not(:last-child),
+  .asp-row [class^="asp-col-"]:not(:last-child) {
     margin-right: 0;
     margin-bottom: 6rem;
   }
@@ -72,12 +76,7 @@
   }
 
   .heading-tertiary {
-    /* font-family: 'Josefin Sans', sans-serif;
-    font-weight: 400;
-    font-size: 4rem;
-    font-style: italic; */
     line-height: 1.2;
-    /* text-align: center; */
   }
 }
 
@@ -110,6 +109,127 @@
       color: #680C0D;
   }
 }
+
+@media (max-width: 36.9em) { /*phone*/
+  .header__text-box {
+      left: 14.5%;
+  }
+
+  .heading-primary--main {
+    letter-spacing: 1rem;
+    font-family: 5rem;
+  }
+
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+
+  .secondary-textbox {
+    left: 19%;
+  }
+
+  .parties {
+    padding-top: 10rem;
+  }
+
+  .popup__left {
+      display: none;
+  }
+
+  .popup__right {
+      padding: 3rem 0rem 3rem 5rem;
+  }
+
+  .logo {
+    margin-left: -1rem;
+    padding-bottom: 2rem;
+  }
+
+  .main-nav {
+    margin-right: 5rem;
+  }
+
+  .btn-view-parties {
+    margin-left: -6rem;
+  }
+
+  .navs .row:last-child {
+    margin-right: -1rem;
+  }
+
+  .btn-view-aspirants {
+    margin-left: -9rem;
+  }
+
+  .bulleted li {
+    display: block;
+  }
+
+  .user-pf {
+      width: 90%;
+  }
+
+  .user-profile__lower {
+      padding: 4rem 2rem 2rem;
+  }
+}
+
+
+@media (max-width: 23.9em) { /*phone*/
+  .header__text-box {
+      left: 13.5%;
+  }
+
+  .secondary-textbox {
+    left: 16%;
+  }
+}
+
+@media (max-width: 22.5em) { /*phone*/
+  html {font-size: 40%;}
+
+  .header__text-box {
+      left: 17%;
+  }
+
+  .heading-primary--main {
+    letter-spacing: 1rem;
+    font-family: 5rem;
+  }
+
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+
+  .secondary-textbox {
+    left: 21%;
+  }
+
+  .logo {
+    margin-left: -1rem;
+    padding-bottom: 2rem;
+  }
+
+  .main-nav {
+    margin-right: 8rem;
+  }
+
+  .main-nav li::before {
+      content: " ";
+      margin-right: 2rem;
+      color: #680C0D;
+  }
+
+  .navs .row:last-child {
+    margin-left: -3rem;
+  }
+
+  .sub-nav .main-nav {
+    margin-right: 0;
+  }
+
+}
+
 
 @media (min-width: 112.5em) {
     html {font-size: 75%; } }
