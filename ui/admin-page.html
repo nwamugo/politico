@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="vendors/css/normalize.css">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,400i|Nunito:300,300i" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+        <link rel="stylesheet" href="resources/css/queries.css">
+
+        <title>Politico | Citizen's Page</title>
+    </head>
+
+    <body class="admin-page">
+      <header class="admin-header">
+        <nav class="navs">
+          <div class="row">
+              <span class="heading-primary--logo logo">Politico</span>
+              <button onclick="toggleDropDown(this)" class="dropbtn create__button">
+                  <svg class="dropbtn create__icon">
+                      <use xlink:href="resources/img/sprite.svg#icon-plus" class="dropbtn"></use>
+                  </svg>
+                  <span class="dropbtn create__label">Create New</span>
+              </button>
+              <div id="myDropdown" class="dropdown-content">
+                <a href="#modify">Political Party</a>
+                <a href="#modify2">Political Office</a>
+              </div>
+              <ul class="main-nav">
+                <li><a href="../index.html"><button class="btn btn-login">Log Out</button></a></li>
+              </ul>
+              <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
+          </div>
+        </nav>
+        <div class="admin-header__text-box">
+            <h1 class="heading-primary">
+                <span class="admin-heading-primary--main">Admin Center</span>
+            </h1>
+            <div class="search-container">
+                <form action="#" class="search">
+                    <label for="search" class="search__label"></label>
+                    <button class="search__button">
+                        <svg class="search__icon">
+                            <use xlink:href="resources/img/sprite.svg#icon-magnifying-glass"></use>
+                        </svg>
+                    </button>
+                    <input type="text" class="search__input" placeholder="Search for Political Party" name="search">
+                </form>
+            </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="row">
+          <div class="row admin-kitchen">
+              <h2 class="heading-secondary meet u-margin-top-big">&nbsp;</h2>
+          </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/acpn-logo.jpg" alt="ACPN">
+                <h3 class="party-name">Allied Congress Party of Nigeria</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    1600 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    60 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="myDropdown" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/apga-logo.jpg" alt="APGA">
+                <h3 class="party-name">All Progressive Grand Party</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    3700 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    160 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/ypp.jpg" alt="YPP">
+                <h3 class="party-name">Young Progressive Party</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    2300 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    110 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/accord-logo.jpg" alt="Accord">
+                <h3 class="party-name">Accord</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    1200 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    50 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1-of-4 box">
+                <img src="resources/img/kowa.jpg" alt="ACPN">
+                <h3 class="party-name">KOWA</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    1600 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    60 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/apc-logo.png" alt="APGA">
+                <h3 class="party-name">All Progressive Congress</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    3700 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    160 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/ydp-logo.jpg" alt="YPP">
+                <h3 class="party-name">Young Democratic Party</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    2300 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    110 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-4 box">
+                <img src="resources/img/accord-logo.jpg" alt="Accord">
+                <h3 class="party-name">Accord</h3>
+                <div class="party-size">
+                    <i class="ion-ios-person icon-small"></i>
+                    1200 Members
+                </div>
+                <div class="party-size">
+                    <i class="ion-ios-star icon-small"></i>
+                    50 political offices
+                </div>
+                <div class="party-size">
+                    <i class="ion-social-twitter icon-small"></i>
+                    <button onclick="toggleDropDown(this)" class="dropbtn menu3__button">
+                      <svg class="dropbtn menu3">
+                          <use xlink:href="resources/img/sprite.svg#icon-menu3" class="dropbtn"></use>
+                      </svg>
+                    </button>
+                    <div id="" class="dropdown-content font-fix">
+                      <a href="#">View Party</a>
+                      <a href="#modify">Modify</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+          &nbsp:
+        </div>
+      </main>
+
+      <footer class="footer">
+          <div class="legal">
+              &copy; 2019 by Duziem & Andela Nigeria. All rights reserved
+          </div>
+      </footer>
+      <div class="modify" id="modify">
+          <div class="modify__content" id="modify__content">
+              <div class="modify__top">
+                  <a href="#" class="modify__close" id="close-signup">&times;</a>
+                  <h3 class="modify-heading u-margin-bottom-small">Edit Party</h3>
+              </div>
+              <form action="ui/profile.html" class="form">
+                  <div class="form__group on-left">
+                    <div class="img-box">
+                        <img class="img__upload" src="" height="200" alt="Image preview...">
+                    </div>
+                    <input class="adjust" type="file" onchange="previewFile()" accept="image/*"><br>
+                  </div>
+                  <div class="go-right">
+                    <div class="form__group modify-space">
+                        <input type="text" class="form__input" id="name">
+                        <label for="name" class="form__label">Party Name:</label>
+                    </div>
+                    <div class="form__group modify-space">
+                        <input type="url" class="form__input" id="url" required>
+                        <label for="url" class="form__label url-label">Website</label>
+                    </div>
+                    <div class="form__group modify-space">
+                        <input type="text" class="form__input" id="founded">
+                        <label for="founded" class="form__label">Founded:</label>
+                    </div>
+                    <textarea name="manifesto" cols="20" rows="4" class="express">Type Party's values...</textarea>
+                  </div>
+
+                  <div class="form__group">
+                      <button class="btn btn-view-results update" id="update">Update</button>
+                  </div>
+                  <div class="form__group">
+                      <button class="btn btn-view-results cancel u-margin-right-small" id="cancel">Cancel</button>
+                  </div>
+                  <div class="form__group">
+                      <button class="btn delete u-margin-right-small">Delete Party</button>
+                  </div>
+              </form>
+          </div>
+        </div>
+        <div class="modify2" id="modify2">
+            <div class="modify__content2" id="modify__content2">
+                <div class="modify__top2">
+                    <a href="#" class="modify__close2" id="close-signup2">&times;</a>
+                    <h3 class="modify-heading u-margin-bottom-small">Create Political Office</h3>
+                </div>
+                <form action="ui/profile.html" class="form">
+                    <div class="go-down">
+                      <div class="form__group modify-space">
+                          <input type="text" class="form__input" id="name">
+                          <label for="name" class="form__label">Name of Office:</label>
+                      </div>
+                      <div class="form__group modify-space">
+                        <p>What level of Government?</p>
+                        <select name="devices">
+                          <option value="local">Local Government</option>
+                          <option value="state">State Government</option>
+                          <option value="federal">Federal</option>
+                        </select>
+                      </div>
+                    <div class="form__group">
+                        <button class="btn btn-view-results update" id="update">Update</button>
+                    </div>
+                    <div class="form__group">
+                        <button class="btn btn-view-results cancel u-margin-right-small" id="cancel">Cancel</button>
+                    </div>
+                    <div class="form__group">
+                        <button class="btn delete u-margin-right-small">Delete Office</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+      <script src="js/admin-script.js"></script>
+    </body>
+</html>
