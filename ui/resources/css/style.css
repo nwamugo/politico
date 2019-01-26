@@ -1226,9 +1226,28 @@ li::before {
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
+.update {
+  position: absolute;
+  top: 90%;
+  right: 10%;
+  background-color: #008f8f;
+}
 
+.cancel {
+  position: absolute;
+  top: 90%;
+  right: 30%;
+}
 
+.delete {
+  position: absolute;
+  top: 90%;
+  left: 5%;
+}
 
+.font-fix a {
+  font-size: 1.8rem;
+}
 
 
 .footer {

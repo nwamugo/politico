@@ -6,7 +6,11 @@ function toggleDropDown(target) {
   }
   closeOpenItems();
   if (open != 1) {
+<<<<<<< HEAD
     target.parentNode.querySelector('.dropdown-content').classList.add('show');
+=======
+    target.parentNode.querySelector('.dropdown-content').classList.add("show");
+>>>>>>> admin features added
   }
   event.stopPropagation();
 }
@@ -14,7 +18,11 @@ function toggleDropDown(target) {
 
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
+<<<<<<< HEAD
     let dropdowns = document.getElementsByClassName('dropdown-content');
+=======
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+>>>>>>> admin features added
     for (let i = 0; i < dropdowns.length; i++) {
       let openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
@@ -45,8 +53,19 @@ function previewFile(){
        if (file) {
            reader.readAsDataURL(file); //reads the data as a URL
        } else {
+<<<<<<< HEAD
            preview.src = '';
+=======
+           preview.src = "";
+>>>>>>> admin features added
        }
   }
 
 previewFile();  //calls the function named previewFile()
+<<<<<<< HEAD
+=======
+
+
+
+//Close modal
+>>>>>>> admin features added
