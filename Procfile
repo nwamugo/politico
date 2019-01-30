@@ -1,1 +1,1 @@
-web: set NODE_ENV=production && babel-node dist/app.js
+web: set NODE_ENV=production && node dist/app.js
