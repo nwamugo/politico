@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "A web app that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency",
   "main": "app.js",
+  "engines": {
+    "node": "11.6.0"
+  },
   "scripts": {
     "dev": "set NODE_ENV=development && nodemon --exec babel-node app.js --presets airbnb",
-    "postinstall": "babel src --out-dir dist --presets airbnb",
+    "postinstall": "babel ./ --out-dir dist --presets airbnb",
     "start": "set NODE_ENV=production && babel-node dist/app.js",
     "lint": "./node_modules/.bin/eslint ./",
     "test": "echo \"Error: no test specified\" && exit 1"

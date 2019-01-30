@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import config from './config';
 
 import partiesRoutes from './routes/parties';
 import officesRoutes from './routes/offices';
@@ -35,4 +36,4 @@ app.get('/', welcome.welcome);
 
 app.use('/*', error.get404);
 
-app.listen(3005);
+app.listen(config.port);

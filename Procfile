@@ -1,0 +1,1 @@
+web: set NODE_ENV=production && babel-node dist/app.js
