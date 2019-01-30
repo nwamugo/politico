@@ -37,3 +37,5 @@ app.get('/', welcome.welcome);
 app.use('/*', error.get404);
 
 app.listen(config.port);
+
+export default app;

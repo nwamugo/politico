@@ -11,7 +11,8 @@
     "postinstall": "babel server --out-dir dist --presets airbnb",
     "start": "set NODE_ENV=production && node dist/app.js",
     "lint": "./node_modules/.bin/eslint server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "set NODE_ENV=test && mocha --compilers js:@babel/register --require @babel/polyfill --recursive server/test --exit",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "repository": {
     "type": "git",
@@ -31,15 +32,21 @@
     "babel-eslint": "^10.0.1",
     "babel-preset-airbnb": "^3.2.0",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.15.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "rewire": "^4.0.1",
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.3.0",
+    "supertest": "^3.4.2"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "body-parser": "^1.18.3",
+    "cross-env": "^5.2.0",
     "express": "^4.16.4"
   }
 }
