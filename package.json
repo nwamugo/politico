@@ -4,6 +4,10 @@
   "description": "A web app that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency",
   "main": "app.js",
   "scripts": {
+    "dev": "set NODE_ENV=development && nodemon --exec babel-node app.js --presets airbnb",
+    "postinstall": "babel src --out-dir dist --presets airbnb",
+    "start": "set NODE_ENV=production && babel-node dist/app.js",
+    "lint": "./node_modules/.bin/eslint ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +19,24 @@
   "bugs": {
     "url": "https://github.com/nwamugo/politico/issues"
   },
-  "homepage": "https://github.com/nwamugo/politico#readme"
+  "homepage": "https://github.com/nwamugo/politico#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-preset-airbnb": "^3.2.0",
+    "chai": "^4.2.0",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.15.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
 }
