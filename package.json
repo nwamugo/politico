@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "set NODE_ENV=development && nodemon --exec babel-node app.js --presets airbnb",
-    "postinstall": "babel **.js --out-dir dist --presets airbnb",
+    "postinstall": "babel **/*.js --out-dir dist --presets airbnb",
     "start": "set NODE_ENV=production && babel-node dist/app.js",
     "lint": "./node_modules/.bin/eslint ./",
     "test": "echo \"Error: no test specified\" && exit 1"
