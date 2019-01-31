@@ -7,7 +7,9 @@ Politico is a platform that enables citizens give their mandate to politicians r
 ## Links to output
 
 The UI is hosted on Github pages [here](https://nwamugo.github.io/politico/)
+
 The API is deployed on heroku [here](https://warm-mesa-86525.herokuapp.com/)
+
 And a Pivotal Tracker Board you can find [here](https://www.pivotaltracker.com/n/projects/2238916)
 
 ### Prerequisites
@@ -100,5 +102,5 @@ This project is a Duziem and Andela bootcamp project 2019
 
 ## Acknowledgments
 
-* Hat tip to the cipher Felix... my guide!
+* Hat tip to the cipher Felix!
 
