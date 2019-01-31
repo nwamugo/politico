@@ -102,5 +102,5 @@ This project is a Duziem and Andela bootcamp project 2019
 
 ## Acknowledgments
 
-* Hat tip to the cipher Felix!
+* Hat tip to the cipher Felix Amande!
 
