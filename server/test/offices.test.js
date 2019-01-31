@@ -12,14 +12,16 @@ const { expect } = chai;
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 
+const server = request(app);
+
 describe('app', () => {
-  afterEach(() => {
-    
+  after(() => {
+    app.server.close();
   });
 
   describe('GET /offices', () => {
     it('should fetch all offices', (done) => {
-      request(app).get('/api/v1/offices')
+      server.get('/api/v1/offices')
         .set('Accept', 'application/json')
         .expect(200)
         .end(done);
@@ -28,7 +30,7 @@ describe('app', () => {
 
   describe('GET /offices/:office_id', () => {
     it('should respond with json containing a single office', (done) => {
-      request(app).get('/api/v1/offices/0')
+      server.get('/api/v1/offices/0')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/);
       if (!Office[0]) expect(404);
@@ -39,7 +41,7 @@ describe('app', () => {
 
   describe('POST /offices', () => {
     it('should call partiesController.postNewOffice', (done) => {
-      request(app).post('/api/v1/offices')
+      server.post('/api/v1/offices')
         .send({
           name: 'Violins Party'
         })

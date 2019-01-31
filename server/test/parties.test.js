@@ -14,14 +14,20 @@ const invalidID = '4x0x4';
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 
-describe('app', () => {
-  // after(() => {
+const server = request(app);
 
-  // });
+describe('app', () => {
+  before(() => {
+    app.server.close();
+  });
+
+  after(() => {
+    app.server.close();
+  });
 
   describe('GET /', () => {
     it('should test / route', (done) => {
-      request(app).get('/')
+      server.get('/')
         .expect(200)
         .end((err, response) => {
           expect(response.body.data[0]).to.have.property('greetings').to.equal('Hey there! Welcome to Duziem\'s Politico API');
@@ -32,7 +38,7 @@ describe('app', () => {
 
   describe('GET /parties', () => {
     it('should fetch all parties', (done) => {
-      request(app).get('/api/v1/parties')
+      server.get('/api/v1/parties')
         .set('Accept', 'application/json')
         .expect(200)
         .end(done);
@@ -41,7 +47,7 @@ describe('app', () => {
 
   describe('GET /parties/:party_id', () => {
     it('should respond with json containing a single party', (done) => {
-      request(app).get('/api/v1/parties/0')
+      server.get('/api/v1/parties/0')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/);
       if (!Party[0]) expect(404);
@@ -52,7 +58,7 @@ describe('app', () => {
 
   describe('POST /parties', () => {
     it('should call partiesController.postNewParty', (done) => {
-      request(app).post('/api/v1/parties')
+      server.post('/api/v1/parties')
         .send({
           name: 'Violins Party'
         })
@@ -66,7 +72,7 @@ describe('app', () => {
 
   describe('PATCH /parties/:party_id/name', () => {
     it('should respond with edited party', (done) => {
-      request(app).patch(`/api/v1/parties/${validID}/name`)
+      server.patch(`/api/v1/parties/${validID}/name`)
         .send({
           name: 'New Party'
         })
@@ -77,7 +83,7 @@ describe('app', () => {
 
   describe('PATCH /parties/:party_id/name', () => {
     it('should respond with edited party', (done) => {
-      request(app).patch(`/api/v1/parties/${invalidID}/name`)
+      server.patch(`/api/v1/parties/${invalidID}/name`)
         .send({
           name: 'New Party'
         })
@@ -88,7 +94,7 @@ describe('app', () => {
 
   describe('DELETE /parties/:party_id', () => {
     it('should produce the correct response', (done) => {
-      request(app).delete('/parties/123')
+      server.delete('/parties/123')
         .end((err, response) => {
           if (err) {
             expect(404);

@@ -1,3 +1,4 @@
+import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -15,6 +16,7 @@ import welcome from './controllers/welcome';
 // import db from './util/database';
 
 const app = express();
+app.server = http.createServer(app);
 
 app.use(bodyParser.json());
 
@@ -36,6 +38,6 @@ app.get('/', welcome.welcome);
 
 app.use('/*', error.get404);
 
-app.listen(config.port);
+app.server.listen(config.port);
 
 export default app;

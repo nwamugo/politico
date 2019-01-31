@@ -6,15 +6,25 @@
   "engines": {
     "node": "11.6.0"
   },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
     "dev": "set NODE_ENV=development && nodemon --exec babel-node server/app.js --presets airbnb",
     "postinstall": "babel server --out-dir dist --presets airbnb",
     "start": "set NODE_ENV=production && node dist/app.js",
     "lint": "./node_modules/.bin/eslint server",
-    "test": "set NODE_ENV=test && mocha --compilers js:@babel/register --require @babel/polyfill --recursive server/test --exit",
+    "test": "cross-env NODE_ENV=test nyc mocha --recursive server/test --exit",
     "test-watch": "nodemon --exec \"npm test\"",
-    "cover": "set NODE_ENV=test && istanbul cover node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 --compilers js:@babel/register --recursive \"server/test/*.test.js\"",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -32,6 +42,7 @@
     "@babel/node": "^7.2.2",
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-istanbul": "^5.1.0",
     "babel-preset-airbnb": "^3.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
