@@ -13,7 +13,7 @@ import petitionsRoutes from './routes/petitions';
 import error from './controllers/error';
 import welcome from './controllers/welcome';
 
-// import db from './util/database';
+import db from './util/database';
 
 const app = express();
 app.server = http.createServer(app);

@@ -8,9 +8,9 @@ const router = Router();
 router.post('/', officesController.postNewOffice);
 
 // GET /offices
-router.get('/', officesController.getAllOffices);
+// router.get('/', officesController.getAllOffices);
 
 // GET /offices/:office_id
-router.get('/:office_id', officesController.getOneOffice);
+// router.get('/:office_id', officesController.getOneOffice);
 
 export default router;

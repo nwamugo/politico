@@ -15,9 +15,9 @@ router.get('/', partiesController.getAllParties);
 router.get('/:party_id', partiesController.getOneParty);
 
 // PATCH /parties/:party_id/name
-router.patch('/:party_id/name', partiesController.patchParty);
+// router.patch('/:party_id/name', partiesController.patchParty);
 
 // DELETE /parties/:party_id
-router.delete('/:party_id', partiesController.deleteAParty);
+// router.delete('/:party_id', partiesController.deleteAParty);
 
 export default router;

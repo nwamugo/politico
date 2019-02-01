@@ -1,41 +1,131 @@
-const pg = require('pg');
+const { Client } = require('pg');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL2 || process.env.DATABASE_URL,
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
 });
 
-pool.on('connect', () => {
-  console.log('connected to the Database');
-});
+client.connect();
+
 
 /**
- * Create Parcels Table
+ * Create Parties Table
  */
-const createParcelsTable = () => {
+const createPartiesTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
-  parcels(
+  parties(
   id UUID PRIMARY KEY,
-  destination TEXT NOT NULL,
-  user_id UUID NOT NULL,
-  price INT,
-  pickup_location TEXT NOT NULL,
-  created_date TIMESTAMP,
-  modified_date TIMESTAMP,
-  status VARCHAR(128),
-  present_location TEXT,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+  name VARCHAR(128) UNIQUE NOT NULL,
+  hq_address TEXT,
+  logo_url VARCHAR(128),
+  created_date TIMESTAMP
   )`;
 
-  pool.query(queryText)
+  client.query(queryText)
     .then((res) => {
       console.log(res);
-      pool.end();
+      client.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      pool.end();
+      client.end();
+    });
+};
+
+
+const createOfficesTable = () => {
+  const queryText = `CREATE TABLE IF NOT EXISTS
+  offices(
+  id UUID PRIMARY KEY,
+  type VARCHAR(128) NOT NULL,
+  name VARCHAR(128) UNIQUE NOT NULL,
+  created_date TIMESTAMP
+  )`;
+
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
+    });
+};
+
+
+const createCandidatesTable = () => {
+  const queryText = `CREATE TABLE IF NOT EXISTS
+  candidates(
+  id UUID PRIMARY KEY,
+  office UUID NOT NULL,
+  party UUID NOT NULL,
+  user UUID NOT NULL,
+  FOREIGN KEY (office) REFERENCES offices (id),
+  FOREIGN KEY (party) REFERENCES parties (id),
+  FOREIGN KEY (user) REFERENCES users (id) ON DELETE CASCADE,
+  created_date TIMESTAMP
+  )`;
+
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
+    });
+};
+
+
+const createVotesTable = () => {
+  const queryText = `CREATE TABLE IF NOT EXISTS
+  votes(
+  id UUID PRIMARY KEY,
+  created_on TIMESTAMP,
+  created_by UUID NOT NULL,
+  office UUID NOT NULL,
+  candidate UUID NOT NULL,
+  FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (office) REFERENCES offices (id) ON DELETE CASCADE,
+  FOREIGN KEY (candidate) REFERENCES candidates (id) ON DELETE CASCADE,
+  )`;
+
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
+    });
+};
+
+
+const createPetitionsTable = () => {
+  const queryText = `CREATE TABLE IF NOT EXISTS
+  petitions(
+  id UUID PRIMARY KEY,
+  created_on TIMESTAMP,
+  created_by UUID NOT NULL,
+  office UUID NOT NULL,
+  FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (office) REFERENCES offices (id) ON DELETE CASCADE,
+  body TEXT NOT NULL
+  )`;
+
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
     });
 };
 
@@ -49,38 +139,90 @@ const createUsersTable = () => {
   first_name VARCHAR(128),
   last_name VARCHAR(128),
   other_name VARCHAR(128),
-  phone INTEGER,
+  phone_number VARCHAR(128),
   email VARCHAR(128) UNIQUE NOT NULL,
   password VARCHAR(128) NOT NULL,
+  passport_url VARCHAR(128),
   is_admin BOOLEAN,
-  created_date TIMESTAMP,
-  modified_date TIMESTAMP
+  created_date TIMESTAMP
   )`;
 
-  pool.query(queryText)
+  client.query(queryText)
     .then((res) => {
       console.log(res);
-      pool.end();
+      client.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      pool.end();
+      client.end();
     });
 };
 
 /**
- * Drop Parcels Table
+ * Drop Parties Table
  */
-const dropParcelsTable = () => {
-  const queryText = 'DROP TABLE IF EXISTS parcels';
-  pool.query(queryText)
+const dropPartiesTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS parties';
+  client.query(queryText)
     .then((res) => {
       console.log(res);
-      pool.end();
+      client.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      pool.end();
+      client.end();
+    });
+};
+
+const dropOfficesTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS offices';
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
+    });
+};
+
+const dropCandidatesTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS candidates';
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
+    });
+};
+
+const dropVotesTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS votes';
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
+    });
+};
+
+const dropPetitionsTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS petitions';
+  client.query(queryText)
+    .then((res) => {
+      console.log(res);
+      client.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      client.end();
     });
 };
 
@@ -89,14 +231,14 @@ const dropParcelsTable = () => {
  */
 const dropUsersTable = () => {
   const queryText = 'DROP TABLE IF EXISTS users';
-  pool.query(queryText)
+  client.query(queryText)
     .then((res) => {
       console.log(res);
-      pool.end();
+      client.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      pool.end();
+      client.end();
     });
 };
 
@@ -104,28 +246,44 @@ const dropUsersTable = () => {
  * Create All Tables
  */
 const createAllTables = () => {
-  createParcelsTable();
+  createPartiesTable();
+  createOfficesTable();
   createUsersTable();
+  createPetitionsTable();
+  createCandidatesTable();
+  createVotesTable();
 };
 
 /**
  * Drop All Tables
  */
 const dropAllTables = () => {
-  dropParcelsTable();
+  dropPartiesTable();
+  dropOfficesTable();
   dropUsersTable();
+  dropPetitionsTable();
+  dropCandidatesTable();
+  dropVotesTable();
 };
 
-pool.on('remove', () => {
+client.on('end', () => {
   process.exit(0);
 });
 
 module.exports = {
-  createParcelsTable,
+  createPartiesTable,
+  createOfficesTable,
+  createCandidatesTable,
+  createVotesTable,
+  createPetitionsTable,
   createUsersTable,
   createAllTables,
   dropUsersTable,
-  dropParcelsTable,
+  dropPetitionsTable,
+  dropVotesTable,
+  dropCandidatesTable,
+  dropOfficesTable,
+  dropPartiesTable,
   dropAllTables
 };
 
