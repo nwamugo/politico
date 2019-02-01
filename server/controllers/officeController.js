@@ -6,7 +6,7 @@ export default {
   async register(req, res) {
     const createQuery = `INSERT INTO
     candidates(id, office, party, user, created_date)
-    VALUES($1, $2, $3, $4)
+    VALUES($1, $2, $3, $4, $5)
     RETURNING *`;
     const values = [
       uuid.v4(),

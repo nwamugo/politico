@@ -26,18 +26,18 @@ const User = {
 
     const createQuery = `INSERT INTO
       users(id, first_name, last_name, other_name, phone_number, email, password, passport_url, is_admin, created_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *`;
     const values = [
       uuid.v4(),
       req.body.first_name,
       req.body.last_name,
       req.body.other_name,
+      req.body.phone_number,
       req.body.email,
       hashPassword,
-      req.body.phone_number,
       req.body.passport_url,
-      false,
+      req.body.is_admin || false,
       moment(new Date())
     ];
 
