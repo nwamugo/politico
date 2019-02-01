@@ -3,8 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
+  connectionString: process.env.DATABASE_URL2 || process.env.DATABASE_URL,
 });
 
 client.connect();
