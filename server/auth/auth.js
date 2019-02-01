@@ -23,8 +23,17 @@ const Auth = {
       const decoded = await jwt.verify(token, process.env.SECRET);
       const text = 'SELECT * FROM users WHERE id = $1';
       const { rows } = await db.query(text, [decoded.userId]);
-      req.user = rows[0];
-      next();
+      if (rows[0]) {
+        req.user = rows[0];
+        next();
+      } else {
+        return res.status(400).json(
+          {
+            status: 400,
+            error: 'Token is expired or invalid',
+          }
+        );
+      }
     } catch (error) {
       return res.status(400).json(
         {

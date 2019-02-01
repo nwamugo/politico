@@ -15,7 +15,6 @@ export default {
       req.body.logo_url,
       moment(new Date())
     ];
-    
     if (req.user.is_admin) {
       try {
         const { rows } = await db.query(createQuery, values);

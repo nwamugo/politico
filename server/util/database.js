@@ -60,43 +60,15 @@ const createOfficesTable = () => {
     });
 };
 
-
-const createCandidatesTable = () => {
-  const queryText = `CREATE TABLE IF NOT EXISTS
-  candidates(
-  id UUID PRIMARY KEY,
-  office UUID NOT NULL,
-  party UUID NOT NULL,
-  user UUID NOT NULL,
-  FOREIGN KEY (office) REFERENCES offices (id),
-  FOREIGN KEY (party) REFERENCES parties (id),
-  FOREIGN KEY (user) REFERENCES users (id) ON DELETE CASCADE,
-  created_date TIMESTAMP
-  )`;
-
-  pool.query(queryText)
-    .then((res) => {
-      console.log(res);
-      pool.end();
-    })
-    .catch((err) => {
-      console.log(err.toString());
-      pool.end();
-    });
-};
-
-
 const createVotesTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   votes(
-  id UUID PRIMARY KEY,
+  id UUID,
   created_on TIMESTAMP,
-  created_by UUID NOT NULL,
-  office UUID NOT NULL,
-  candidate UUID NOT NULL,
-  FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (office) REFERENCES offices (id) ON DELETE CASCADE,
-  FOREIGN KEY (candidate) REFERENCES candidates (id) ON DELETE CASCADE,
+  created_by UUID REFERENCES users(id),
+  office UUID REFERENCES offices(id),
+  candidate UUID REFERENCES candidates(id),
+  PRIMARY KEY(created_by, office)
   )`;
 
   pool.query(queryText)
@@ -149,6 +121,27 @@ const createUsersTable = () => {
   password VARCHAR(128) NOT NULL,
   passport_url VARCHAR(128),
   is_admin BOOLEAN,
+  created_date TIMESTAMP
+  )`;
+
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      pool.end();
+    });
+};
+
+const createCandidatesTable = () => {
+  const queryText = `CREATE TABLE IF NOT EXISTS
+  candidates(
+  id UUID PRIMARY KEY,
+  office UUID REFERENCES offices(id),
+  party UUID REFERENCES parties(id),
+  candidate UUID REFERENCES users(id),
   created_date TIMESTAMP
   )`;
 
