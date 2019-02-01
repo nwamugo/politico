@@ -3,7 +3,11 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL2 || process.env.DATABASE_URL,
+  user: 'fdjjtdih',
+  host: 'pellefant.db.elephantsql.com',
+  database: 'fdjjtdih',
+  password: process.env.DATABASE_PASSWORD,
+  port: '5432'
 });
 
 pool.on('connect', () => {
@@ -268,7 +272,7 @@ const dropAllTables = () => {
 };
 
 pool.on('remove', () => {
-  console.log("We are going up!")
+  console.log('We are going up!');
   process.exit(0);
 });
 

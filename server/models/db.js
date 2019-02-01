@@ -4,7 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL2 || process.env.DATABASE_URL,
+  user: 'fdjjtdih',
+  host: 'pellefant.db.elephantsql.com',
+  database: 'fdjjtdih',
+  password: process.env.DATABASE_PASSWORD,
+  port: '5432'
 });
 
 
@@ -16,7 +20,7 @@ export default {
           resolve(res);
         })
         .catch((err) => {
-          reject(err);
+          reject(err.toString());
         });
     });
   },
