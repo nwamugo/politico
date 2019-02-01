@@ -1,16 +1,17 @@
 import { Router } from 'express';
 
 import officesController from '../controllers/officesController';
+import Auth from '../auth/auth';
 
 const router = Router();
 
 // POST /offices
-router.post('/', officesController.postNewOffice);
+router.post('/', Auth.verifyToken, officesController.postNewOffice);
 
 // GET /offices
-// router.get('/', officesController.getAllOffices);
+router.get('/', Auth.verifyToken, officesController.getAllOffices);
 
 // GET /offices/:office_id
-// router.get('/:office_id', officesController.getOneOffice);
+router.get('/:office_id', Auth.verifyToken, officesController.getOneOffice);
 
 export default router;

@@ -15,28 +15,36 @@ export default {
       moment(new Date())
     ];
 
-
-    try {
-      const { rows } = await db.query(createQuery, values);
-      return res.status(201).json(
-        {
-          status: 201,
-          data: [rows[0]],
+    if (req.user.is_admin) {
+      try {
+        const { rows } = await db.query(createQuery, values);
+        return res.status(201).json(
+          {
+            status: 201,
+            data: [rows[0]],
+          }
+        );
+      } catch (error) {
+        if (error.routine === '_bt_check_unique') {
+          return res.status(400).json(
+            {
+              status: 400,
+              message: 'There cannot be multiple offices of the same name'
+            }
+          );
         }
-      );
-    } catch (error) {
-      if (error.routine === '_bt_check_unique') {
         return res.status(400).json(
           {
-            status: 400,
-            message: 'There cannot be multiple offices of the same name'
+            status: 201,
+            error: error.toString(),
           }
         );
       }
+    } else {
       return res.status(400).json(
         {
-          status: 201,
-          error: error.toString(),
+          status: 400,
+          message: 'You don\'t have admin privileges',
         }
       );
     }

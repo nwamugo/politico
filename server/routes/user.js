@@ -4,11 +4,10 @@ import User from '../controllers/userController';
 const router = Router();
 console.log(User.signup);
 
-// api routes v1 (/api/v1)
-router.get('/:userId/parcels', User.getAll);
-
+// signup route (/api/v1/auth)
 router.post('/signup', User.signup);
 
+// login route (/api/v1/auth)
 router.post('/login', User.login);
 
 

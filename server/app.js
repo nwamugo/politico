@@ -9,11 +9,10 @@ import officesRoutes from './routes/offices';
 import officeRoutes from './routes/office';
 import votesRoutes from './routes/votes';
 import petitionsRoutes from './routes/petitions';
+import userRoutes from './routes/user';
 
 import error from './controllers/error';
 import welcome from './controllers/welcome';
-
-import db from './util/database';
 
 const app = express();
 app.server = http.createServer(app);
@@ -32,6 +31,7 @@ app.use('/api/v1/offices', officesRoutes);
 app.use('/api/v1/office', officeRoutes);
 app.use('/api/v1/votes', votesRoutes);
 app.use('/api/v1/petitions', petitionsRoutes);
+app.use('/api/v1/auth', userRoutes);
 
 app.get('/', welcome.welcome);
 

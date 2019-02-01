@@ -15,28 +15,36 @@ export default {
       req.body.logo_url,
       moment(new Date())
     ];
-
-    try {
-      const { rows } = await db.query(createQuery, values);
-      return res.status(201).json(
-        {
-          status: 201,
-          data: [rows[0]],
+    if (req.user.is_admin) {
+      try {
+        const { rows } = await db.query(createQuery, values);
+        return res.status(201).json(
+          {
+            status: 201,
+            data: [rows[0]],
+          }
+        );
+      } catch (error) {
+        if (error.routine === '_bt_check_unique') {
+          return res.status(400).json(
+            {
+              status: 400,
+              message: 'There cannot be two parties of the same name'
+            }
+          );
         }
-      );
-    } catch (error) {
-      if (error.routine === '_bt_check_unique') {
         return res.status(400).json(
           {
-            status: 400,
-            message: 'There cannot be two parties of the same name'
+            status: 201,
+            error: error.toString(),
           }
         );
       }
+    } else {
       return res.status(400).json(
         {
-          status: 201,
-          error: error.toString(),
+          status: 400,
+          message: 'You don\'t have admin privileges',
         }
       );
     }
@@ -48,34 +56,43 @@ export default {
     SET name=$1, hq_address=$2, logo_url=$3
     WHERE id=$4 returning *`;
 
-    try {
-      const { rows } = await db.query(findOneParty, req.params.id);
-      if (!rows[0]) {
-        return res.status(404).json(
+    if (req.user.is_admin) {
+      try {
+        const { rows } = await db.query(findOneParty, req.params.id);
+        if (!rows[0]) {
+          return res.status(404).json(
+            {
+              status: 404,
+              error: 'Party not found'
+            }
+          );
+        }
+        const values = [
+          req.body.name || rows[0].name,
+          req.body.hq_address || rows[0].hq_address,
+          req.body.logo_url || rows[0].logo_url,
+          req.params.id
+        ];
+        const response = await db.query(editOneParty, values);
+        return res.status(200).json(
           {
-            status: 404,
-            error: 'Party not found'
+            status: 200,
+            data: response.rows[0],
+          }
+        );
+      } catch (err) {
+        return res.status(400).json(
+          {
+            status: 400,
+            error: err.toString(),
           }
         );
       }
-      const values = [
-        req.body.name || rows[0].name,
-        req.body.hq_address || rows[0].hq_address,
-        req.body.logo_url || rows[0].logo_url,
-        req.params.id
-      ];
-      const response = await db.query(editOneParty, values);
-      return res.status(200).json(
-        {
-          status: 200,
-          data: response.rows[0],
-        }
-      );
-    } catch (err) {
+    } else {
       return res.status(400).json(
         {
           status: 400,
-          error: err.toString(),
+          message: 'You don\'t have admin privileges',
         }
       );
     }
@@ -138,29 +155,39 @@ export default {
 
   async deleteAParty(req, res) {
     const deleteQuery = 'DELETE FROM parties WHERE id=$1 returning *';
-    try {
-      const { rows } = await db.query(deleteQuery, req.params.id);
-      if (!rows[0]) {
-        return res.status(404).json(
+
+    if (req.user.is_admin) {
+      try {
+        const { rows } = await db.query(deleteQuery, req.params.id);
+        if (!rows[0]) {
+          return res.status(404).json(
+            {
+              status: 404,
+              error: 'party not found'
+            }
+          );
+        }
+        return res.status(410).json(
           {
-            status: 404,
-            error: 'party not found'
+            status: 410,
+            message: 'Party successfully deleted!'
+          }
+        );
+      } catch (error) {
+        return res.status(400).json(
+          {
+            status: 400,
+            error: error.toString(),
           }
         );
       }
-      return res.status(410).json(
-        {
-          status: 410,
-          message: 'Party successfully deleted!'
-        }
-      );
-    } catch (error) {
+    } else {
       return res.status(400).json(
         {
           status: 400,
-          error: error.toString(),
+          message: 'You don\'t have admin privileges',
         }
-      )
+      );
     }
   }
 };
