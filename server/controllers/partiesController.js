@@ -58,7 +58,7 @@ export default {
 
     if (req.user.is_admin) {
       try {
-        const { rows } = await db.query(findOneParty, req.params.id);
+        const { rows } = await db.query(findOneParty, [req.params.party_id]);
         if (!rows[0]) {
           return res.status(404).json(
             {
@@ -127,7 +127,7 @@ export default {
   async getOneParty(req, res) {
     const text = 'SELECT * FROM parties WHERE id = $1';
     try {
-      const { rows } = await db.query(text, req.params.id);
+      const { rows } = await db.query(text, [req.params.party_id]);
       if (!rows[0]) {
         return res.status(404).json(
           {
@@ -158,7 +158,7 @@ export default {
 
     if (req.user.is_admin) {
       try {
-        const { rows } = await db.query(deleteQuery, req.params.id);
+        const { rows } = await db.query(deleteQuery, [req.params.party_id]);
         if (!rows[0]) {
           return res.status(404).json(
             {

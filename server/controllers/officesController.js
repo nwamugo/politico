@@ -75,9 +75,9 @@ export default {
   },
 
   async getOneOffice(req, res) {
-    const text = 'SELECT * FROM parties WHERE id = $1';
+    const text = 'SELECT * FROM offices WHERE id = $1';
     try {
-      const { rows } = await db.query(text, req.params.id);
+      const { rows } = await db.query(text, [req.params.office_id]);
       if (!rows[0]) {
         return res.status(404).json(
           {
