@@ -1,18 +1,18 @@
-import { Client } from 'pg';
+import pg from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL2 || process.env.DATABASE_URL,
+const pool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL2,
 });
 
-client.connect();
+pool.connect();
 
 export default {
   query(text, params) {
     return new Promise((resolve, reject) => {
-      client.query(text, params)
+      pool.query(text, params)
         .then((res) => {
           resolve(res);
         })

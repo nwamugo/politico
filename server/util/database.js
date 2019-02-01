@@ -1,12 +1,14 @@
-const { Client } = require('pg');
+const pg = require('pg');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const client = new Client({
-  connectionString: process.env.DATABASE_URL2 || process.env.DATABASE_URL,
+const pool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL2,
 });
 
-client.connect();
+pool.on('connect', () => {
+  console.log('connected to the Database');
+});
 
 
 /**
@@ -22,14 +24,14 @@ const createPartiesTable = () => {
   created_date TIMESTAMP
   )`;
 
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -43,14 +45,14 @@ const createOfficesTable = () => {
   created_date TIMESTAMP
   )`;
 
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -68,14 +70,14 @@ const createCandidatesTable = () => {
   created_date TIMESTAMP
   )`;
 
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -93,14 +95,14 @@ const createVotesTable = () => {
   FOREIGN KEY (candidate) REFERENCES candidates (id) ON DELETE CASCADE,
   )`;
 
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -117,14 +119,14 @@ const createPetitionsTable = () => {
   body TEXT NOT NULL
   )`;
 
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -146,14 +148,14 @@ const createUsersTable = () => {
   created_date TIMESTAMP
   )`;
 
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -162,66 +164,66 @@ const createUsersTable = () => {
  */
 const dropPartiesTable = () => {
   const queryText = 'DROP TABLE IF EXISTS parties';
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
 const dropOfficesTable = () => {
   const queryText = 'DROP TABLE IF EXISTS offices';
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
 const dropCandidatesTable = () => {
   const queryText = 'DROP TABLE IF EXISTS candidates';
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
 const dropVotesTable = () => {
   const queryText = 'DROP TABLE IF EXISTS votes';
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
 const dropPetitionsTable = () => {
   const queryText = 'DROP TABLE IF EXISTS petitions';
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -230,14 +232,14 @@ const dropPetitionsTable = () => {
  */
 const dropUsersTable = () => {
   const queryText = 'DROP TABLE IF EXISTS users';
-  client.query(queryText)
+  pool.query(queryText)
     .then((res) => {
       console.log(res);
-      client.end();
+      pool.end();
     })
     .catch((err) => {
       console.log(err.toString());
-      client.end();
+      pool.end();
     });
 };
 
@@ -265,7 +267,8 @@ const dropAllTables = () => {
   dropVotesTable();
 };
 
-client.on('end', () => {
+pool.on('remove', () => {
+  console.log("We are going up!")
   process.exit(0);
 });
 
