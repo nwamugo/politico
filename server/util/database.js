@@ -7,7 +7,7 @@ const pool = new pg.Pool({
   host: 'pellefant.db.elephantsql.com',
   database: 'fdjjtdih',
   password: process.env.DATABASE_PASSWORD,
-  port: '5432'
+  port: 5432
 });
 
 pool.on('connect', () => {
