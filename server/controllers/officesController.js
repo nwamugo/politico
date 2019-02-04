@@ -1,15 +1,14 @@
 import moment from 'moment';
-import uuid from 'uuid';
 import db from '../models/db';
+import Helper from './helper';
 
 export default {
   async postNewOffice(req, res) {
     const createQuery = `INSERT INTO
-    offices(id, type, name, created_date)
-    VALUES($1, $2, $3, $4)
+    offices(type, name, created_date)
+    VALUES($1, $2, $3)
     RETURNING *`;
     const values = [
-      uuid.v4(),
       req.body.type,
       req.body.name,
       moment(new Date())
@@ -25,25 +24,17 @@ export default {
           }
         );
       } catch (error) {
-        if (error.routine === '_bt_check_unique') {
-          return res.status(400).json(
-            {
-              status: 400,
-              message: 'There cannot be multiple offices of the same name'
-            }
-          );
-        }
-        return res.status(400).json(
+        return res.status(409).json(
           {
-            status: 201,
-            error: error.toString(),
+            status: 409,
+            error: 'There cannot be multiple offices of the same type',
           }
         );
       }
     } else {
-      return res.status(400).json(
+      return res.status(401).json(
         {
-          status: 400,
+          status: 401,
           message: 'You don\'t have admin privileges',
         }
       );
@@ -65,16 +56,24 @@ export default {
         }
       );
     } catch (err) {
-      res.status(400).json(
+      res.status(500).json(
         {
-          status: 400,
-          error: err.toString(),
+          status: 500,
+          error: 'Oops! failed to process your request',
         }
       );
     }
   },
 
   async getOneOffice(req, res) {
+    if (Helper.officeIdFail(req)) {
+      return res.status(422).json(
+        {
+          status: 422,
+          error: 'Invalid office id',
+        }
+      );
+    }
     const text = 'SELECT * FROM offices WHERE id = $1';
     try {
       const { rows } = await db.query(text, [req.params.office_id]);
@@ -93,10 +92,10 @@ export default {
         }
       );
     } catch (error) {
-      return res.status(400).json(
+      return res.status(500).json(
         {
-          status: 400,
-          error: error.toString(),
+          status: 500,
+          error: 'Something went wrong while processing your request',
         }
       );
     }

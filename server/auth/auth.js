@@ -12,9 +12,9 @@ const Auth = {
   async verifyToken(req, res, next) {
     const token = req.headers['x-access-token'];
     if (!token) {
-      return res.status(400).json(
+      return res.status(428).json(
         {
-          status: 400,
+          status: 428,
           error: 'Token is not provided'
         }
       );
@@ -24,21 +24,22 @@ const Auth = {
       const text = 'SELECT * FROM users WHERE id = $1';
       const { rows } = await db.query(text, [decoded.userId]);
       if (rows[0]) {
-        req.user = rows[0];
+        const [user] = rows;
+        req.user = user;
         next();
       } else {
-        return res.status(400).json(
+        return res.status(412).json(
           {
-            status: 400,
+            status: 412,
             error: 'Token is expired or invalid',
           }
         );
       }
     } catch (error) {
-      return res.status(400).json(
+      return res.status(424).json(
         {
-          status: 400,
-          error: error.toString(),
+          status: 424,
+          error: 'Something went wrong with authenticating user',
         }
       );
     }

@@ -21,7 +21,7 @@ pool.on('connect', () => {
 const createPartiesTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   parties(
-  id UUID PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(128) UNIQUE NOT NULL,
   hq_address TEXT,
   logo_url VARCHAR(128),
@@ -43,7 +43,7 @@ const createPartiesTable = () => {
 const createOfficesTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   offices(
-  id UUID PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   type VARCHAR(128) NOT NULL,
   name VARCHAR(128) UNIQUE NOT NULL,
   created_date TIMESTAMP
@@ -60,36 +60,13 @@ const createOfficesTable = () => {
     });
 };
 
-const createVotesTable = () => {
-  const queryText = `CREATE TABLE IF NOT EXISTS
-  votes(
-  id UUID,
-  created_on TIMESTAMP,
-  created_by UUID REFERENCES users(id),
-  office UUID REFERENCES offices(id),
-  candidate UUID REFERENCES candidates(id),
-  PRIMARY KEY(created_by, office)
-  )`;
-
-  pool.query(queryText)
-    .then((res) => {
-      console.log(res);
-      pool.end();
-    })
-    .catch((err) => {
-      console.log(err.toString());
-      pool.end();
-    });
-};
-
-
 const createPetitionsTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   petitions(
-  id UUID PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   created_on TIMESTAMP,
-  created_by UUID NOT NULL,
-  office UUID NOT NULL,
+  created_by INT NOT NULL,
+  office INT NOT NULL,
   FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (office) REFERENCES offices (id) ON DELETE CASCADE,
   body TEXT NOT NULL
@@ -112,7 +89,7 @@ const createPetitionsTable = () => {
 const createUsersTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   users(
-  id UUID PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   first_name VARCHAR(128),
   last_name VARCHAR(128),
   other_name VARCHAR(128),
@@ -138,11 +115,34 @@ const createUsersTable = () => {
 const createCandidatesTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   candidates(
-  id UUID PRIMARY KEY,
-  office UUID REFERENCES offices(id),
-  party UUID REFERENCES parties(id),
-  candidate UUID REFERENCES users(id),
-  created_date TIMESTAMP
+  id SERIAL UNIQUE,
+  office INT REFERENCES offices(id),
+  party INT REFERENCES parties(id),
+  candidate INT REFERENCES users(id),
+  created_date TIMESTAMP,
+  PRIMARY KEY(office, candidate)
+  )`;
+
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err.toString());
+      pool.end();
+    });
+};
+
+const createVotesTable = () => {
+  const queryText = `CREATE TABLE IF NOT EXISTS
+  votes(
+  id SERIAL UNIQUE,
+  created_on TIMESTAMP,
+  created_by INT REFERENCES users(id),
+  office INT REFERENCES offices(id),
+  candidate INT REFERENCES candidates(id),
+  PRIMARY KEY(office, created_by)
   )`;
 
   pool.query(queryText)

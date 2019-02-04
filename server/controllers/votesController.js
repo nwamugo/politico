@@ -1,15 +1,13 @@
 import moment from 'moment';
-import uuid from 'uuid';
 import db from '../models/db';
 
 export default {
   async vote(req, res) {
     const createQuery = `INSERT INTO
-    votes(id, created_on, created_by, office, candidate)
-    VALUES($1, $2, $3, $4, $5)
+    votes(created_on, created_by, office, candidate)
+    VALUES($1, $2, $3, $4)
     RETURNING *`;
     const values = [
-      uuid.v4(),
       moment(new Date()),
       req.body.created_by,
       req.body.office,
@@ -25,18 +23,10 @@ export default {
         }
       );
     } catch (error) {
-      if (error.routine === '_bt_check_unique') {
-        return res.status(400).json(
-          {
-            status: 400,
-            message: 'Voter can only vote once for a particular office'
-          }
-        );
-      }
-      return res.status(400).json(
+      return res.status(409).json(
         {
-          status: 400,
-          error: error.toString(),
+          status: 409,
+          error: 'A voter cannot vote more than once for a particular office',
         }
       );
     }

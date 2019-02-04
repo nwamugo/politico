@@ -1,5 +1,4 @@
 import moment from 'moment';
-import uuid from 'uuid';
 import db from '../models/db';
 import Secure from './secureController';
 
@@ -25,11 +24,10 @@ const User = {
 
 
     const createQuery = `INSERT INTO
-      users(id, first_name, last_name, other_name, phone_number, email, password, passport_url, is_admin, created_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      users(first_name, last_name, other_name, phone_number, email, password, passport_url, is_admin, created_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *`;
     const values = [
-      uuid.v4(),
       req.body.first_name,
       req.body.last_name,
       req.body.other_name,
@@ -57,18 +55,10 @@ const User = {
         }
       );
     } catch (error) {
-      if (error.routine === '_bt_check_unique') {
-        return res.status(400).json(
-          {
-            status: 400,
-            message: 'User with that EMAIL already exists'
-          }
-        );
-      }
       return res.status(400).json(
         {
           status: 400,
-          error: error.toString()
+          error: 'User with that EMAIL already exists'
         }
       );
     }
@@ -126,7 +116,7 @@ const User = {
       return res.status(400).json(
         {
           status: 400,
-          error: error.toString()
+          error: 'Login request failed'
         }
       );
     }
