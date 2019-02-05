@@ -1,0 +1,140 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+
+.header {
+    height: 15vh;
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(104,12,13, 0.8),
+        rgba(40,180,133, 0.8)),
+        url(img/rally-2.jpeg);
+    background-size: cover;
+    background-position: top;
+    position: relative;
+}
+
+.header__text-box {
+    height: 100%;
+    margin: 0 40rem;
+    text-align: center;
+
+    background-color: #333;
+    padding: 1.1rem;
+    position: relative;
+}
+
+.heading-primary {
+    margin-top: 1%;
+}
+
+.heading-primary--main {
+    font-weight: 400;
+    color: #fff;
+    display: block;
+    font-size: 6rem;
+    letter-spacing: 3.5rem;
+}
+
+.api-welcome-page {
+    background-color: #eee;
+}
+
+.story-center {
+    margin-top: 2%;
+    text-align: center;
+}
+
+
+
+/*MEDIA QUERIES*/
+/*0 - 600px phone
+600 - 900px tablet portrait
+900 - 1200px tablet landscape
+1200 - 1800 is our normal style
+1800px + is for the Big desktop
+*/
+
+@media (max-width: 75em) { /*land*/
+    html {font-size: 56.25%; }
+
+    .header__text-box {
+        margin: 0 35rem;
+    }
+
+    .heading-primary {
+        margin-top: 15%;
+    }
+    
+    .heading-primary--main {
+        letter-spacing: 2.5rem;
+    }
+}
+  
+  @media (max-width: 56.25em) { /*port*/
+    html {font-size: 50%;}
+
+    .header__text-box {
+        margin: 0 28rem;
+    }
+
+    .heading-primary {
+        margin-top: 12%;
+    }
+  }
+  
+  @media (max-width: 37.5em) { /*phone*/
+    .header__text-box {
+        margin: 0 8rem;
+    }
+  
+    .heading-primary {
+        margin-top: 10%;
+    }
+  
+  }
+  
+  @media (max-width: 36.9em) { /*phone*/
+    .heading-primary {
+        margin-top: 6%;
+    }
+  
+    .heading-primary--main {
+      letter-spacing: 1rem;
+    }
+
+  
+  }
+  
+  
+  
+  @media (max-width: 22.5em) { /*phone*/
+    html {font-size: 40%;}
+  
+    .heading-primary--main {
+      letter-spacing: 1rem;
+      font-family: 5rem;
+    }  
+  }
+  
+  
+@media (min-width: 112.5em) {
+    html {font-size: 75%; }
+}
+  
