@@ -1,7 +1,18 @@
+import moment from 'moment';
+import { validationResult } from 'express-validator/check';
+
 import db from '../models/db';
 
 export default {
   async register(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = errors.array().map(a => a.msg);
+      return res.status(422).json({
+        status: 422,
+        errors: error
+      });
+    }
     if (req.user.is_admin) {
       const createQuery = `INSERT INTO
       candidates(office, party, candidate, created_date)
@@ -11,7 +22,7 @@ export default {
         req.body.office,
         req.body.party,
         req.params.user_id,
-        Date.now()
+        moment(new Date())
       ];
       try {
         const { rows } = await db.query(createQuery, values);

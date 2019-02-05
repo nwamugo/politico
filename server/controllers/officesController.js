@@ -1,8 +1,18 @@
+import moment from 'moment';
+import { validationResult } from 'express-validator/check';
+
 import db from '../models/db';
 import Helper from './helper';
 
 export default {
   async postNewOffice(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        status: 422,
+        errors: errors.array()
+      });
+    }
     const createQuery = `INSERT INTO
     offices(type, name, created_date)
     VALUES($1, $2, $3)
@@ -10,7 +20,7 @@ export default {
     const values = [
       req.body.type,
       req.body.name,
-      Date.now()
+      moment(new Date())
     ];
 
     if (req.user.is_admin) {

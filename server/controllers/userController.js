@@ -1,8 +1,19 @@
+import { validationResult } from 'express-validator/check';
+import moment from 'moment';
+
 import db from '../models/db';
 import Secure from './secureController';
 
 const User = {
   async signup(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = errors.array().map(a => a.msg);
+      return res.status(422).json({
+        status: 422,
+        errors: error
+      });
+    }
     if (!req.body.email || !req.body.password) {
       return res.status(400).json(
         {
@@ -23,8 +34,8 @@ const User = {
 
 
     const createQuery = `INSERT INTO
-      users(first_name, last_name, other_name, phone_number, email, password, passport_url, is_admin, created_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      users(first_name, last_name, other_name, phone_number, email, password, passport_url, created_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *`;
     const values = [
       req.body.first_name,
@@ -34,8 +45,7 @@ const User = {
       req.body.email,
       hashPassword,
       req.body.passport_url,
-      req.body.is_admin || false,
-      Date.now()
+      moment(new Date())
     ];
 
 
@@ -57,13 +67,21 @@ const User = {
       return res.status(400).json(
         {
           status: 400,
-          error: 'User with that EMAIL already exists'
+          error: error.toString()
         }
       );
     }
   },
 
   async login(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = errors.array().map(a => a.msg);
+      return res.status(422).json({
+        status: 422,
+        errors: error
+      });
+    }
     if (!req.body.email || !req.body.password) {
       return res.status(400).json(
         {

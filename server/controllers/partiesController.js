@@ -1,8 +1,19 @@
+import moment from 'moment';
+import { validationResult } from 'express-validator/check';
+
 import db from '../models/db';
 import Helper from './helper';
 
 export default {
   async postNewParty(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = errors.array().map(a => a.msg);
+      return res.status(422).json({
+        status: 422,
+        errors: error
+      });
+    }
     const createQuery = `INSERT INTO
     parties(name, hq_address, logo_url, created_date)
     VALUES($1, $2, $3, $4)
@@ -11,7 +22,7 @@ export default {
       req.body.name,
       req.body.hq_address,
       req.body.logo_url,
-      Date.now()
+      moment(new Date())
     ];
     if (req.user.is_admin) {
       try {
@@ -41,6 +52,14 @@ export default {
   },
 
   async patchParty(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = errors.array().map(a => a.msg);
+      return res.status(422).json({
+        status: 422,
+        errors: error
+      });
+    }
     if (Helper.partyIdFail(req)) {
       return res.status(422).json(
         {

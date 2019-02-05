@@ -2,11 +2,12 @@ import { Router } from 'express';
 
 import officesController from '../controllers/officesController';
 import Auth from '../auth/auth';
+import validation from '../auth/validation';
 
 const router = Router();
 
 // POST /offices
-router.post('/', Auth.verifyToken, officesController.postNewOffice);
+router.post('/', Auth.verifyToken, validation.checkNewOffice, officesController.postNewOffice);
 
 // GET /offices
 router.get('/', Auth.verifyToken, officesController.getAllOffices);
