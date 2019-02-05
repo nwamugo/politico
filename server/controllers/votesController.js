@@ -1,4 +1,3 @@
-import moment from 'moment';
 import db from '../models/db';
 
 export default {
@@ -8,7 +7,7 @@ export default {
     VALUES($1, $2, $3, $4)
     RETURNING *`;
     const values = [
-      moment(new Date()),
+      Date.now(),
       req.body.created_by,
       req.body.office,
       req.body.candidate

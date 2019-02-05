@@ -1,4 +1,3 @@
-import moment from 'moment';
 import db from '../models/db';
 import Helper from './helper';
 
@@ -11,7 +10,7 @@ export default {
     const values = [
       req.body.type,
       req.body.name,
-      moment(new Date())
+      Date.now()
     ];
 
     if (req.user.is_admin) {

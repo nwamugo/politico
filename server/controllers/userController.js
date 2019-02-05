@@ -1,4 +1,3 @@
-import moment from 'moment';
 import db from '../models/db';
 import Secure from './secureController';
 
@@ -36,7 +35,7 @@ const User = {
       hashPassword,
       req.body.passport_url,
       req.body.is_admin || false,
-      moment(new Date())
+      Date.now()
     ];
 
 

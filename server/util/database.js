@@ -90,10 +90,10 @@ const createUsersTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   users(
   id SERIAL PRIMARY KEY,
-  first_name VARCHAR(128),
-  last_name VARCHAR(128),
+  first_name VARCHAR(128) NOT NULL,
+  last_name VARCHAR(128) NOT NULL,
   other_name VARCHAR(128),
-  phone_number VARCHAR(128),
+  phone_number VARCHAR(128) UNIQUE NOT NULL,
   email VARCHAR(128) UNIQUE NOT NULL,
   password VARCHAR(128) NOT NULL,
   passport_url VARCHAR(128),

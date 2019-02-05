@@ -1,4 +1,3 @@
-import moment from 'moment';
 import db from '../models/db';
 import Helper from './helper';
 
@@ -12,7 +11,7 @@ export default {
       req.body.name,
       req.body.hq_address,
       req.body.logo_url,
-      moment(new Date())
+      Date.now()
     ];
     if (req.user.is_admin) {
       try {

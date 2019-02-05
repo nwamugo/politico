@@ -1,4 +1,3 @@
-import moment from 'moment';
 import db from '../models/db';
 
 export default {
@@ -12,7 +11,7 @@ export default {
         req.body.office,
         req.body.party,
         req.params.user_id,
-        moment(new Date())
+        Date.now()
       ];
       try {
         const { rows } = await db.query(createQuery, values);
@@ -38,19 +37,38 @@ export default {
   },
 
   async collateAndFetch(req, res) {
-    const createQuery = 'SELECT * FROM pg_collation';
+    const createQuery = `SELECT COUNT(votes.candidate)
+    AS result, candidates.office, candidates.candidate
+    FROM votes JOIN candidates
+    ON candidates.id = votes.candidate
+    WHERE votes.candidate = candidates.id
+    AND candidates.office = $1
+    GROUP BY candidates.id, candidates.candidate, candidates.office`;
+
     try {
-      const { rows } = await db.query(createQuery);
+      const { rows } = await db.query(createQuery, [req.params.office_id]);
       console.log(rows[0]);
-      return res.status(201).json({
-        status: 201,
-        data: [rows[0]],
-      });
+      if (!rows[0]) {
+        return res.status(404).json(
+          {
+            status: 404,
+            error: 'Office with that id not found'
+          }
+        );
+      }
+      return res.status(201).json(
+        {
+          status: 201,
+          data: [rows[0]],
+        }
+      );
     } catch (error) {
-      return res.status(500).json({
-        status: 500,
-        error: error.toString(),
-      });
+      return res.status(500).json(
+        {
+          status: 500,
+          error: 'Something went wrong with the request',
+        }
+      );
     }
   }
 };

@@ -1,55 +1,87 @@
 import request from 'supertest';
 import chai from 'chai';
+import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import chaiAsPromised from 'chai-as-promised';
 
 import app from '../app';
-import Office from '../models/office';
-
-const { expect } = chai;
+import officesController from '../controllers/officesController';
+import user from '../controllers/userController';
+import auth from '../auth/auth';
+import db from '../models/db';
 
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
+const { expect } = chai;
+let sandbox = sinon.createSandbox();
 
 const server = request(app);
 
-describe('app', () => {
+
+describe('offices', () => {
+  let fakeAuth;
+  let authStub;
+
+  beforeEach(() => {
+    fakeAuth = (req, res, next) => next();
+
+    authStub = sandbox.stub(auth, 'verifyToken').callsFake(fakeAuth);
+  });
   after(() => {
     app.server.close();
   });
 
-  describe('GET /offices', () => {
-    it('should fetch all offices', (done) => {
-      server.get('/api/v1/offices')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end(done);
-    });
+  afterEach(() => {
+    sandbox.restore();
   });
 
-  describe('GET /offices/:office_id', () => {
-    it('should respond with json containing a single office', (done) => {
-      server.get('/api/v1/offices/0')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/);
-      if (!Office[0]) expect(404);
-      expect(200);
-      done();
-    });
-  });
+  // context('GET /offices', () => {
+  //   it('should fetch all offices', (done) => {
+  //     server.get('/api/v1/offices')
+  //       .set('Accept', 'application/json')
+  //       .expect(200)
+  //       .end(done);
+  //   });
+  // });
 
-  describe('POST /offices', () => {
-    it('should call partiesController.postNewOffice', (done) => {
+  // describe('GET /offices/:office_id', () => {
+  //   it('should respond with json containing a single office', (done) => {
+  //     server.get('/api/v1/offices/0')
+  //       .set('Accept', 'application/json')
+  //       .expect('Content-Type', /json/);
+  //     if (!Office[0]) expect(404);
+  //     expect(200);
+  //     done();
+  //   });
+  // });
+
+  context('POST /offices', () => {
+    let postNewOfficeStub;
+    let errorStub;
+
+    it('should call officesController.postNewOffice', (done) => {
+      postNewOfficeStub = sandbox.stub(officesController, 'postNewOffice').resolves({
+        type: 'Government Tier',
+        name: 'Head',
+        is_admin: true
+      });
       server.post('/api/v1/offices')
         .send({
-          name: 'Violins Party'
+          type: 'State Government',
+          name: 'Governor',
+          is_admin: true
         })
         .expect(201)
-        .end((err, response) => {
-          expect(response.body.data[0]).to.have.property('name').to.equal('Violins Party');
+        .end((err, res) => {
+          expect(postNewOfficeStub).to.have.been.calledOnce;
+          expect(res.body).to.have.property('name').to.equal('Head');
           done(err);
         });
     });
+
+    // it('should call admin error if not admin', async () => {
+    //   postNewOfficeStub = sandbox.stub(officesController, 'postNewOffice').rejects(new Error('not admin'))
+    // })
   });
 });
