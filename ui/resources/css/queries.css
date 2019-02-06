@@ -1,0 +1,326 @@
+/*MEDIA QUERIES*/
+/*0 - 600px phone
+600 - 900px tablet portrait
+900 - 1200px tablet landscape
+1200 - 1800 is our normal style
+1800px + is for the Big desktop
+*/
+
+@media (max-width: 75em) { /*land*/
+  html {font-size: 56.25%; }
+
+  .main-nav {
+    margin-right: 4rem;
+  }
+
+  .logo {
+    margin-left: -2rem;
+  }
+
+}
+
+@media (max-width: 56.25em) { /*port*/
+  html {font-size: 50%;}
+
+  .heading-secondary {
+    font-size: 3rem;
+  }
+
+  .logo {
+    margin-left: -20rem;
+  }
+
+  .main-nav {
+    margin-right: -8rem;
+  }
+
+  .row,
+  .asp-row {
+    max-width: 50rem;
+  }
+
+  .row:not(:last-child),
+  .asp-row:not(:last-child) {
+    margin-bottom: 6rem;
+  }
+
+  .row [class^="col-"],
+  .asp-row [class^="asp-col-"] {
+    width: 100% !important;
+  }
+
+  .row [class^="col-"]:not(:last-child),
+  .asp-row [class^="asp-col-"]:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 6rem;
+  }
+
+  .composition__photo {
+    float: right;
+    position: relative;
+    width: 33.3333333%;
+    box-shadow: 0 1.5rem 3rem rgba(0,0,0, .2);
+  }
+
+  .composition__photo--p1 {
+    top: 0;
+  }
+
+  .composition__photo--p2 {
+    top: 0;
+  }
+
+  .composition__photo--p3 {
+    top: -1.5rem;
+    left: 0;
+  }
+
+  .heading-tertiary {
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 37.5em) { /*phone*/
+  .header__text-box {
+      left: 24%;
+  }
+
+  .heading-primary--main {
+    letter-spacing: 1rem;
+    font-family: 5rem;
+  }
+
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+
+  .logo {
+    margin-left: -10rem;
+    padding-bottom: 2rem;
+  }
+
+  .main-nav {
+    margin-right: -3rem;
+  }
+
+  .main-nav li::before {
+      content: " ";
+      margin-right: 2rem;
+      color: #680C0D;
+  }
+}
+
+@media (max-width: 36.9em) { /*phone*/
+  .header__text-box {
+      left: 14.5%;
+  }
+
+  .heading-primary--main {
+    letter-spacing: 1rem;
+    font-family: 5rem;
+  }
+
+  .admin-header__text-box {
+      padding: 4rem;
+  }
+
+
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+
+  .secondary-textbox {
+    left: 19%;
+  }
+
+  .search__input {
+      padding: 2rem 3rem 2rem 4rem;
+      font-size: 1.4rem;
+  }
+
+  .dropdown-content {
+    top: 12.9%;
+    left: 34%;
+  }
+
+  .font-fix {
+    left: 70%;
+  }
+
+  .parties {
+    padding-top: 10rem;
+  }
+
+  .popup__left {
+      display: none;
+  }
+
+  .popup__right {
+      padding: 3rem 0rem 3rem 5rem;
+  }
+
+  .logo {
+    margin-left: -1rem;
+    padding-bottom: 2rem;
+  }
+
+  .main-nav {
+    margin-right: 5rem;
+  }
+
+  .btn-view-parties {
+    margin-left: -6rem;
+  }
+
+  .navs .row:last-child {
+    margin-right: -1rem;
+  }
+
+  .btn-view-aspirants {
+    margin-left: -9rem;
+  }
+
+  .bulleted li {
+    display: block;
+  }
+
+  .user-pf {
+      width: 90%;
+  }
+
+  .user-profile__lower,
+  .results-profile__lower {
+      padding: 4rem 2rem 2rem;
+  }
+
+
+  .create__button {
+    top: 8rem;
+    left: 34%;
+  }
+
+  .modify__content {
+    width: 90%;
+    height: 96%;
+  }
+
+  .modify-space {
+    margin-bottom: 1rem;
+  }
+
+  .go-right {
+    float: none;
+    margin-top: 4rem;
+    margin-left: 8rem;
+    width: 80%;
+  }
+
+  .on-left {
+    margin: 2rem 2rem 2rem 8rem;
+  }
+
+  .go-down {
+    margin: 25rem 2rem;
+  }
+
+  .update {
+    top: 15%;
+  }
+
+  .cancel {
+    display: none;
+  }
+
+  .delete {
+    top: 95%;
+    padding: 1rem;
+    border: none;
+    background-color: #fff;
+    color: red;
+  }
+
+  .results-pf {
+    width: 100%;
+  }
+
+  .presidential-spot {
+    width: 100%;
+    padding-left: -1rem;
+  }
+
+  .gubernatorial-spot {
+    width: 100%;
+  }
+
+  .notice-board  {
+    position: relative;
+    left: 13%;
+  }
+
+  .legislative-spot {
+    position: relative;
+    left: 0%;
+    width: 100%;
+    margin-top: 2rem;
+  }
+}
+
+
+@media (max-width: 23.9em) { /*phone*/
+  .header__text-box {
+      left: 13.5%;
+  }
+
+  .secondary-textbox {
+    left: 16%;
+  }
+}
+
+@media (max-width: 22.5em) { /*phone*/
+  html {font-size: 40%;}
+
+  .header__text-box {
+      left: 17%;
+  }
+
+  .heading-primary--main {
+    letter-spacing: 1rem;
+    font-family: 5rem;
+  }
+
+  .heading-secondary {
+    font-size: 2.5rem;
+  }
+
+  .secondary-textbox {
+    left: 21%;
+  }
+
+  .logo {
+    margin-left: -1rem;
+    padding-bottom: 2rem;
+  }
+
+  .main-nav {
+    margin-right: 8rem;
+  }
+
+  .main-nav li::before {
+      content: " ";
+      margin-right: 2rem;
+      color: #680C0D;
+  }
+
+  .navs .row:last-child {
+    margin-left: -3rem;
+  }
+
+  .sub-nav .main-nav {
+    margin-right: 0;
+  }
+
+}
+
+
+@media (min-width: 112.5em) {
+    html {font-size: 75%; } }
