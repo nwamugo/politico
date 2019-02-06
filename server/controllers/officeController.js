@@ -49,7 +49,7 @@ export default {
 
   async collateAndFetch(req, res) {
     const createQuery = `SELECT COUNT(votes.candidate)
-    AS result, candidates.office, candidates.candidate
+    AS result, candidates.office, candidates.id
     FROM votes JOIN candidates
     ON candidates.id = votes.candidate
     WHERE votes.candidate = candidates.id
