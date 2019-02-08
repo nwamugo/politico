@@ -67,7 +67,7 @@ const User = {
       return res.status(400).json(
         {
           status: 400,
-          error: 'Could not authenticate database password'
+          error: error.toString()
         }
       );
     }
