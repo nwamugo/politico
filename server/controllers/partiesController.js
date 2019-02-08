@@ -94,7 +94,7 @@ export default {
         return res.status(200).json(
           {
             status: 200,
-            data: response.rows[0],
+            data: [response.rows[0]],
           }
         );
       } catch (err) {
@@ -124,10 +124,10 @@ export default {
       return res.status(200).json(
         {
           status: 200,
-          data: {
+          data: [{
             allParties,
             total,
-          }
+          }]
         }
       );
     } catch (err) {
@@ -164,7 +164,7 @@ export default {
       return res.status(200).json(
         {
           status: 200,
-          data: rows[0]
+          data: [rows[0]]
         }
       );
     } catch (error) {

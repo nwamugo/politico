@@ -67,7 +67,7 @@ const User = {
       return res.status(400).json(
         {
           status: 400,
-          error: error.toString()
+          error: 'Could not authenticate database password'
         }
       );
     }
@@ -133,7 +133,7 @@ const User = {
       return res.status(400).json(
         {
           status: 400,
-          error: 'Login request failed'
+          error: 'Cannot reach database!'
         }
       );
     }

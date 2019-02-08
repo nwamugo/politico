@@ -1,15 +1,21 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
+import dbConfig from '../config/database_config';
+
 dotenv.config();
 
-const pool = new Pool({
-  user: 'fdjjtdih',
-  host: 'pellefant.db.elephantsql.com',
-  database: 'fdjjtdih',
-  password: process.env.DATABASE_PASSWORD,
-  port: '5432'
-});
+const env = process.env.NODE_ENV || 'development';
+const connectionObject = dbConfig[env.trim()];
+const pool = new Pool(connectionObject);
+
+// const pool = new Pool({
+//   user: 'fdjjtdih',
+//   host: 'pellefant.db.elephantsql.com',
+//   database: 'fdjjtdih',
+//   password: process.env.DATABASE_PASSWORD,
+//   port: '5432'
+// });
 
 
 export default {

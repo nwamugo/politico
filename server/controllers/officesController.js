@@ -59,10 +59,10 @@ export default {
       return res.status(200).json(
         {
           status: 200,
-          data: {
+          data: [{
             allOffices,
             total,
-          }
+          }]
         }
       );
     } catch (err) {
@@ -98,7 +98,7 @@ export default {
       return res.status(200).json(
         {
           status: 200,
-          data: rows[0]
+          data: [rows[0]]
         }
       );
     } catch (error) {

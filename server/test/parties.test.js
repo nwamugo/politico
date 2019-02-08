@@ -1,108 +1,119 @@
-// import request from 'supertest';
-// import chai from 'chai';
-// import sinonChai from 'sinon-chai';
-// import chaiAsPromised from 'chai-as-promised';
+import request from 'supertest';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 
-// import app from '../app';
-// import Party from '../models/party';
+import app from '../app';
+import db from '../models/db';
 
-// const { expect } = chai;
+chai.use(chaiAsPromised);
+const { expect } = chai;
 
-// const validID = 345;
-// const invalidID = '4x0x4';
+const server = request(app);
 
-// chai.use(sinonChai);
-// chai.use(chaiAsPromised);
+const userCredentials = {
+  email: 'tadeous@gmail.com',
+  password: 'humpty'
+};
 
-// const server = request(app);
+let userToken = '';
 
-// describe('app', () => {
-//   before(() => {
-//     app.server.close();
-//   });
 
-//   after(() => {
-//     app.server.close();
-//   });
+describe('Political parties', () => {
+  before((done) => {
+    server.post('/api/v1/auth/login')
+      .send(userCredentials)
+      .end((err, res) => {
+        userToken = res.body.data[0].token;
+        expect(res.status).to.equal(200);
+        expect(res.body.data).to.be.a('array');
+        console.log(userToken);
+        done();
+      });
+  });
+  beforeEach(() => {
 
-//   describe('GET /', () => {
-//     it('should test / route', (done) => {
-//       server.get('/')
-//         .expect(200)
-//         .end((err, response) => {
-//           expect(response.body.data[0]).to.have.property('greetings').to.equal('Hey there! Welcome to Duziem\'s Politico API');
-//           done(err);
-//         });
-//     });
-//   });
+  });
+  after(() => {
+    app.server.close();
+  });
 
-//   describe('GET /parties', () => {
-//     it('should fetch all parties', (done) => {
-//       server.get('/api/v1/parties')
-//         .set('Accept', 'application/json')
-//         .expect(200)
-//         .end(done);
-//     });
-//   });
+  afterEach(() => {
 
-//   describe('GET /parties/:party_id', () => {
-//     it('should respond with json containing a single party', (done) => {
-//       server.get('/api/v1/parties/0')
-//         .set('Accept', 'application/json')
-//         .expect('Content-Type', /json/);
-//       if (!Party[0]) expect(404);
-//       expect(200);
-//       done();
-//     });
-//   });
+  });
 
-//   describe('POST /parties', () => {
-//     it('should call partiesController.postNewParty', (done) => {
-//       server.post('/api/v1/parties')
-//         .send({
-//           name: 'Violins Party'
-//         })
-//         .expect(201)
-//         .end((err, response) => {
-//           expect(response.body.data[0]).to.have.property('name').to.equal('Violins Party');
-//           done(err);
-//         });
-//     });
-//   });
 
-//   describe('PATCH /parties/:party_id/name', () => {
-//     it('should respond with edited party', (done) => {
-//       server.patch(`/api/v1/parties/${validID}/name`)
-//         .send({
-//           name: 'New Party'
-//         })
-//         .expect(202);
-//       done();
-//     });
-//   });
+  context('POST /parties', () => {
+    it('should create a new political party', (done) => {
+      server.post('/api/v1/parties')
+        .send({
+          name: 'Young Progressive Party',
+          hq_address: 'Ajao Estate, Lagos'
+        })
+        .set('x-access-token', userToken)
+        .expect(201)
+        .end((err, res) => {
+          expect(res.body.data[0]).to.be.a('object');
+          expect(res.body.data[0]).to.have.property('name').to.equal('Young Progressive Party');
+          done(err);
+        });
+    });
+  });
 
-//   describe('PATCH /parties/:party_id/name', () => {
-//     it('should respond with edited party', (done) => {
-//       server.patch(`/api/v1/parties/${invalidID}/name`)
-//         .send({
-//           name: 'New Party'
-//         })
-//         .expect(404);
-//       done();
-//     });
-//   });
+  context('GET /parties', () => {
+    it('should fetch all parties', (done) => {
+      server.get('/api/v1/parties')
+        .set('Accept', 'application/json')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.data[0]).to.be.a('object');
+          expect(res.body.data[0]).to.have.property('total').to.be.a('Number');
+          done(err);
+        });
+    });
+  });
 
-//   describe('DELETE /parties/:party_id', () => {
-//     it('should produce the correct response', (done) => {
-//       server.delete('/parties/123')
-//         .end((err, response) => {
-//           if (err) {
-//             expect(404);
-//           } else {
-//             expect(200);
-//           }
-//           done(err);
-//         });
-//     });
-//   });
-// });
+  context('GET /parties/:party_id', () => {
+    it('should respond with json containing a single political party', (done) => {
+      server.get('/api/v1/parties/1')
+        .set('Accept', 'application/json')
+        .set('x-access-token', userToken)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end((err, res) => {
+          console.log(res.body);
+          expect(res.body.data[0]).to.be.a('object');
+          expect(res.body.data[0]).to.have.property('name').to.equal('Young Progressive Party');
+          done(err);
+        });
+    });
+  });
+
+  context('PATCH /parties/:party_id/name', () => {
+    it('should be able to edit a specific party', (done) => {
+      server.patch('/api/v1/parties/1/name')
+        .send({
+          name: 'The Chicago Bulls',
+        })
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.data[0]).to.have.property('name').to.equal('The Chicago Bulls');
+          done(err);
+        });
+    });
+  });
+
+  context('DELETE /parties/:party_id', () => {
+    it('should delete a particular party on success', (done) => {
+      server.delete('/api/v1/parties/1')
+        .set('x-access-token', userToken)
+        .expect(410)
+        .end((err, res) => {
+          console.log(res.body);
+          expect(res.body.message).to.equal('Party successfully deleted!');
+          done(err);
+        });
+    });
+  });
+});
