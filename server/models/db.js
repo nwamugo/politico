@@ -5,7 +5,7 @@ import dbConfig from '../config/database_config';
 
 dotenv.config();
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 const connectionObject = dbConfig[env.trim()];
 const pool = new Pool(connectionObject);
 

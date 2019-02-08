@@ -6,7 +6,7 @@ import dbConfig from '../config/database_config';
 dotenv.config();
 
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 console.log(env);
 const connectionObject = dbConfig[env];
 const pool = new pg.Pool(connectionObject);

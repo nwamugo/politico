@@ -10,7 +10,7 @@ export default {
     password: process.env.test_DATABASE,
     port: 5432
   },
-  development: {
+  production: {
     user: 'fdjjtdih',
     host: 'pellefant.db.elephantsql.com',
     database: 'fdjjtdih',
