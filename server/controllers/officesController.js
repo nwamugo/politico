@@ -37,7 +37,7 @@ export default {
         return res.status(409).json(
           {
             status: 409,
-            error: 'There cannot be multiple offices of the same type',
+            error: 'There cannot be multiple offices of the same name',
           }
         );
       }

@@ -33,12 +33,29 @@ export default {
         }
       );
     } catch (error) {
-      return res.status(409).json(
-        {
+      if (error.toString() === 'error: insert or update on table "votes" violates foreign key constraint "votes_candidate_fkey"') {
+        res.status(404).json({
+          status: 404,
+          error: 'Please check that the candidate exists',
+        });
+      } else if (error.toString() === 'error: insert or update on table "votes" violates foreign key constraint "votes_office_fkey"') {
+        return res.status(404).json({
+          status: 404,
+          error: 'Please check that the office exists',
+        });
+      } else if (error.toString() === 'error: duplicate key value violates unique constraint "votes_pkey"') {
+        return res.status(409).json({
           status: 409,
-          error: 'A voter cannot vote more than once for a particular office',
-        }
-      );
+          error: 'Duplicate voting is not allowed',
+        });
+      } else {
+        return res.status(404).json(
+          {
+            status: 404,
+            error: error.toString(),
+          }
+        );
+      }
     }
   }
 };

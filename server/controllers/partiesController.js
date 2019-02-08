@@ -101,7 +101,7 @@ export default {
         return res.status(501).json(
           {
             status: 501,
-            error: 'Could not successfully edit party',
+            error: 'Could not successfully edit party. Please note that two parties cannot have the same name!',
           }
         );
       }

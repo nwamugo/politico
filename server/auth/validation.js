@@ -39,7 +39,11 @@ const validation = {
       .trim()
       .not()
       .isEmpty()
-      .withMessage('Name is required')
+      .withMessage('Name is required'),
+    body('hq_address')
+      .trim(),
+    body('logo_url')
+      .trim()
   ],
   checkNewOffice: [
     body('type')

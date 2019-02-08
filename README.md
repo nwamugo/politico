@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/nwamugo/politico.svg?branch=ch-unit-tests-endpoints-163505632)](https://travis-ci.com/nwamugo/politico)
-[![Coverage Status](https://coveralls.io/repos/github/nwamugo/politico/badge.svg?branch=ch-unit-tests-endpoints-163505632)](https://coveralls.io/github/nwamugo/politico?branch=ch-unit-tests-endpoints-163505632)
+[![Build Status](https://travis-ci.com/nwamugo/politico.svg?branch=ft-power-html-api-163755719)](https://travis-ci.com/nwamugo/politico)
+[![Coverage Status](https://coveralls.io/repos/github/nwamugo/politico/badge.svg?branch=ft-power-html-api-163755719)](https://coveralls.io/github/nwamugo/politico?branch=ft-power-html-api-163755719)
 
 # Politico
 Politico is a platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.
@@ -102,4 +102,4 @@ This project is a Duziem and Andela bootcamp project 2019
 
 ## Acknowledgments
 
-* Hat tip to the cipher Felix Amande!
+* Hat tip to the cipher Felix Amande and the superheroine Jane 'JCanaks' Anaekwe!

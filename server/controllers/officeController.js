@@ -32,10 +32,27 @@ export default {
           data: [rows[0]],
         });
       } catch (error) {
-        return res.status(409).json({
-          status: 409,
-          error: 'You cannot register twice for the same office',
-        });
+        if (error.toString() === 'error: duplicate key value violates unique constraint "candidates_pkey"') {
+          res.status(409).json({
+            status: 409,
+            error: 'You cannot vote multiple times for the same office',
+          });
+        } else if (error.toString() === 'error: insert or update on table "candidates" violates foreign key constraint "candidates_office_fkey"') {
+          res.status(404).json({
+            status: 404,
+            error: 'Please check that the office exists',
+          });
+        } else if (error.toString() === 'error: insert or update on table "candidates" violates foreign key constraint "candidates_candidate_fkey"') {
+          res.status(404).json({
+            status: 404,
+            error: 'Please check that the user exists',
+          });
+        } else {
+          return res.status(404).json({
+            status: 404,
+            error: error.toString(),
+          });
+        }
       }
     } else {
       return res.status(401).json(
