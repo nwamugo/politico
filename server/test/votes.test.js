@@ -26,7 +26,6 @@ describe('Votes', () => {
         userToken = res.body.data[0].token;
         expect(res.status).to.equal(200);
         expect(res.body.data).to.be.a('array');
-        console.log(userToken);
         done();
       });
   });

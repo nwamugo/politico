@@ -26,7 +26,6 @@ export default {
       ];
       try {
         const { rows } = await db.query(createQuery, values);
-        console.log(rows[0]);
         return res.status(201).json({
           status: 201,
           data: [rows[0]],
@@ -75,7 +74,6 @@ export default {
 
     try {
       const { rows } = await db.query(createQuery, [req.params.office_id]);
-      console.log(rows[0]);
       if (!rows[0]) {
         return res.status(404).json(
           {

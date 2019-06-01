@@ -31,7 +31,6 @@ describe('offices', () => {
         userToken = res.body.data[0].token;
         expect(res.status).to.equal(201);
         expect(res.body.data).to.be.a('array');
-        console.log(userToken);
         const setAdmin = `UPDATE users
     SET is_admin=$1
     WHERE id=$2 returning *`;
@@ -94,7 +93,6 @@ describe('offices', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.body.data[0]).to.be.a('object');
           expect(res.body.data[0]).to.have.property('name').to.equal('Governor');
           done(err);

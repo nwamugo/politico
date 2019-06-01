@@ -26,7 +26,6 @@ describe('Political parties', () => {
         userToken = res.body.data[0].token;
         expect(res.status).to.equal(200);
         expect(res.body.data).to.be.a('array');
-        console.log(userToken);
         done();
       });
   });
@@ -81,7 +80,6 @@ describe('Political parties', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.body.data[0]).to.be.a('object');
           expect(res.body.data[0]).to.have.property('name').to.equal('Young Progressive Party');
           done(err);
@@ -110,7 +108,6 @@ describe('Political parties', () => {
         .set('x-access-token', userToken)
         .expect(410)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.body.message).to.equal('Party successfully deleted!');
           done(err);
         });

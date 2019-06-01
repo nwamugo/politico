@@ -1,5 +1,6 @@
 import http from 'http';
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import config from './config';
@@ -15,18 +16,14 @@ import error from './controllers/error';
 import welcome from './controllers/welcome';
 
 const app = express();
+
+app.use(cors());
+
 app.server = http.createServer(app);
 
-// console.log(process.env.NODE_ENV);
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-access-token');
-  next();
-});
 
 app.use('/api/v1/parties', partiesRoutes);
 app.use('/api/v1/offices', officesRoutes);

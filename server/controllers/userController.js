@@ -34,17 +34,18 @@ const User = {
 
 
     const createQuery = `INSERT INTO
-      users(first_name, last_name, other_name, phone_number, email, password, passport_url, created_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      users(first_name, last_name, other_name, phone_number, email, password, passport_url, is_admin, created_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *`;
     const values = [
       req.body.first_name,
       req.body.last_name,
-      req.body.other_name,
+      req.body.other_name || '',
       req.body.phone_number,
       req.body.email,
       hashPassword,
-      req.body.passport_url,
+      req.body.passport_url || '',
+      false,
       moment(new Date())
     ];
 
@@ -52,6 +53,7 @@ const User = {
     try {
       const { rows } = await db.query(createQuery, values);
       const token = Secure.generateToken(rows[0].id);
+      delete rows[0].password;
       return res.status(201).json(
         {
           status: 201,
