@@ -7,6 +7,7 @@ Politico is a platform that enables citizens give their mandate to politicians r
 ## Links to output
 
 The UI is hosted on Github pages [here](https://nwamugo.github.io/politico/)
+PS: Admin Users can see their UI at [Admin Page](https://nwamugo.github.io/politico/ui/admin-page.html)
 
 The API is deployed on heroku [here](https://warm-mesa-86525.herokuapp.com/)
 
