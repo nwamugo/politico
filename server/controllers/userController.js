@@ -64,10 +64,16 @@ const User = {
         }
       );
     } catch (error) {
+      if (error.toString() === 'error: duplicate key value violates unique constraint "users_email_key"') {
+        return res.status(409).json({
+          status: 409,
+          error: 'Email already exists! Try with a different email',
+        });
+      }
       return res.status(400).json(
         {
           status: 400,
-          error: 'Could not authenticate database password'
+          error: 'Could not connect with database'
         }
       );
     }

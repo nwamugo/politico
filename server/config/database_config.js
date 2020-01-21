@@ -16,5 +16,12 @@ export default {
     database: 'fdjjtdih',
     password: process.env.DATABASE_PASSWORD,
     port: 5432
+  },
+  production: {
+    user: 'fdjjtdih',
+    host: 'pellefant.db.elephantsql.com',
+    database: 'fdjjtdih',
+    password: process.env.DATABASE_PASSWORD,
+    port: 5432
   }
 };
