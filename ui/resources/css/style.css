@@ -103,7 +103,7 @@ body {
 .main-nav {
   float: right;
   list-style: none;
-  margin-top: -7.1rem;
+  margin-top: -4.1rem;
 }
 
 .secondary-textbox {
@@ -578,12 +578,35 @@ li::before {
     transition: all .4s .2s;
 }
 
+.popup__content2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    background-color: #0e0e0e;
+    box-shadow: 0 2rem 4rem rgba(0,0,0, .2);
+    border-radius: 3px;
+    display: table;
+    overflow: hidden;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.25);
+    transition: all .4s .2s;
+}
+
 .popup__left {
     width: 33.333333%;
     display: table-cell;
 }
 
 .popup__right {
+    width: 66.666667%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem;
+}
+
+.popup__right-login {
     width: 66.666667%;
     display: table-cell;
     vertical-align: middle;
